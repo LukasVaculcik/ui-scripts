@@ -7,9 +7,9 @@ export default function initScrollTo() {
     let offset = 0;
 
     if (component.hasAttribute("data-scroll-offset")) {
-      let value = parseInt(component.dataset.offset);
-      if (typeof value == "number") {
-        offset = value;
+      let dataOffset = parseInt(component.dataset.offset);
+      if (typeof dataOffset == "number") {
+        offset = dataOffset;
       }
     }
 

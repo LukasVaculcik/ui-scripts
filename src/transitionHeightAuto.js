@@ -5,7 +5,7 @@ export function expandElement(element) {
   let height = element.scrollHeight;
 
   // have the element transition to the height of its inner content
-  element.style.height = height + "px";
+  element.style.height = `${height}px`;
 
   // when the next css transition finishes (which should be the one we just triggered)
   element.addEventListener("transitionend", function (e) {
@@ -31,20 +31,20 @@ export function collapseElement(element) {
   // explicitly set the element's height to its current pixel height, so we
   // aren't transitioning out of 'auto'
   requestAnimationFrame(function () {
-    element.style.height = height + "px";
+    element.style.height = `${height}px`;
     element.style.transition = transition;
 
     // on the next frame (as soon as the previous style change has taken effect),
     // have the element transition to height: 0
     requestAnimationFrame(function () {
-      element.style.height = 0 + "px";
+      element.style.height = `${0}px`;
     });
   });
 
   element.addEventListener("transitionend", function (e) {
     // remove this event listener so it only gets triggered once
     element.removeEventListener("transitionend", () => {});
-    element.style.height = 0 + "px";
+    element.style.height = `${0}px`;
   });
 
   element.setAttribute("data-collapsed", "true");
