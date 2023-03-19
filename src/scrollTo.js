@@ -1,7 +1,7 @@
 export default function initScrollTo() {
   const components = document.querySelectorAll("[data-scroll-target-id]");
 
-  Array.from(components).forEach((component) => {
+  components.forEach((component) => {
     const targetId = component.dataset.scrollTargetId;
     const targetElement = document.querySelector(targetId);
     let offset = 0;

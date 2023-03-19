@@ -1,4 +1,9 @@
 export default function initFadeInObserver() {
+  const observedElements = document.querySelectorAll("[data-animation-fadein]");
+
+  if (observedElements.length === 0) {
+    return;
+  }
   // Options for intersection observer
   const observerOptions = {
     root: null,
@@ -8,7 +13,7 @@ export default function initFadeInObserver() {
 
   // Create intersection observer and do stuff
   const observer = new IntersectionObserver((entries, observer) => {
-    Array.from(entries).forEach((entry) => {
+    entries.forEach((entry) => {
       let delay = 0; // in miliseconds
       let dataDelay = parseInt(entry.dataset.fadeinDelay);
       if (typeof dataDelay == "number") {
@@ -30,8 +35,7 @@ export default function initFadeInObserver() {
   }, observerOptions);
 
   // Attach observer to every desired element
-  const observedElements = document.querySelectorAll("[data-animation-fadein]");
-  Array.from(observedElements).forEach((element) => {
+  observedElements.forEach((element) => {
     observer.observe(element);
   });
 }

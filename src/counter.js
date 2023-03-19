@@ -9,6 +9,13 @@ const defaults = {
 };
 
 export default function initCounter() {
+  const observedElements = document.querySelectorAll(
+    `[data-animation-counter]`
+  );
+
+  if (observedElements.length === 0) {
+    return;
+  }
   // Options for intersection observer
   const observerOptions = {
     root: null,
@@ -18,7 +25,7 @@ export default function initCounter() {
 
   // Create intersection observer and do stuff
   const observer = new IntersectionObserver((entries, observer) => {
-    Array.from(entries).forEach((entry) => {
+    entries.forEach((entry) => {
       const { counterMax, counterRounding, counterDuration, counterUnit } =
         entry.target.dataset;
 
@@ -56,8 +63,7 @@ export default function initCounter() {
   }, observerOptions);
 
   // Attach observer to every desired element
-  const observedElements = document.querySelectorAll(`[data-counter]`);
-  Array.from(observedElements).forEach((element) => {
+  observedElements.forEach((element) => {
     observer.observe(element);
   });
 }
