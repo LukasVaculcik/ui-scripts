@@ -1,0 +1,18 @@
+[data-animation] {
+  animation-play-state: paused;
+  animation-fill-mode: both;
+}
+
+[data-animation="fadein"] {
+  animation-name: fadein;
+  animation-delay: 2000;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
