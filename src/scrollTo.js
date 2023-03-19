@@ -2,6 +2,10 @@
 // <button data-scroll-target="targetId" data-scroll-offset="100"></button>
 // <div id="targetId"></div>
 
+const defaults = {
+  offset: 0,
+};
+
 export default function initScrollTo() {
   const components = document.querySelectorAll("[data-scroll-target]");
 
@@ -9,10 +13,13 @@ export default function initScrollTo() {
     const { scrollTarget, scrollOffset } = component.dataset;
     const targetElement = document.querySelector(`#${scrollTarget}`);
     const offset =
-      typeof parseInt(scrollOffset) == "number" ? parseInt(scrollOffset) : 0;
+      typeof parseInt(scrollOffset) == "number"
+        ? parseInt(scrollOffset)
+        : defaults.offset;
 
     component.addEventListener("click", (event) => {
-      event.preventDefault(); // disables <a> tag from redirecting
+      // disables <a> tag from redirecting
+      event.preventDefault();
 
       window.scrollTo({
         top:
