@@ -6,6 +6,8 @@
 [data-animation="fadein"] {
   animation-name: fadein;
   animation-delay: 2000;
+  animation-duration: 200ms;
+  animation-iteration-count: 1;
 }
 
 @keyframes fadein {
