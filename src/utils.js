@@ -21,6 +21,7 @@ export function strToBool(someString) {
   return someString === "true";
 }
 
+// Debounce executes function only once per wait tiem
 export function debounce(func, wait = 100, immediate) {
   let timeout;
   return function (...args) {

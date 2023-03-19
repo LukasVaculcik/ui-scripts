@@ -1,17 +1,19 @@
+// Example
+// <div data-counter data-counter-max="77" data-counter-rounding="100" data-counter-duration="5000" data-counter-unit=" km"></div>
+
 import anime from "animejs";
 
 const locale = document.querySelector("html").getAttribute("lang");
 const unitRegex = new RegExp(/.*\d(.*)$/, "i");
 const defaults = {
+  max: 0,
   rounding: 10,
-  duration: 4000,
+  duration: 3000,
   unit: "",
 };
 
 export default function initCounter() {
-  const observedElements = document.querySelectorAll(
-    `[data-animation-counter]`
-  );
+  const observedElements = document.querySelectorAll(`[data-counter]`);
 
   if (observedElements.length === 0) {
     return;
@@ -29,17 +31,15 @@ export default function initCounter() {
       const { counterMax, counterRounding, counterDuration, counterUnit } =
         entry.target.dataset;
 
-      // create counter animation only if counterMax value is parsed float
-      if (isNaN(parseFloat(counterMax))) {
-        return;
-      }
-
-      const max = parseFloat(counterMax);
+      const max =
+        typeof parseFloat(counterMax) == "number"
+          ? parseFloat(counterMax)
+          : defaults.max;
       const unitString = unitRegex.exec(counterMax).pop();
-      let rounding = Number.isInteger(parseInt(counterRounding))
+      const rounding = Number.isInteger(parseInt(counterRounding))
         ? parseInt(counterRounding)
         : defaults.rounding;
-      let duration = Number.isInteger(parseInt(counterDuration))
+      const duration = Number.isInteger(parseInt(counterDuration))
         ? parseInt(counterDuration)
         : defaults.duration;
       let unit = defaults.unit;
@@ -54,7 +54,7 @@ export default function initCounter() {
         unit = counterUnit;
       }
 
-      // create & run animation, then stop observing
+      // create & run animation, then stop observing to prevent reseting the animation
       if (entry.isIntersecting) {
         counterAnimation(entry.target, max, rounding, duration, unit);
         observer.unobserve(entry.target);

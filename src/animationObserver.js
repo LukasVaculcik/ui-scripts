@@ -1,5 +1,5 @@
-// Example of DOM element
-// <div data-animation="fadein" data-animation-delay="4000"></div>
+// Example
+// <img data-animation="fadein" data-animation-delay="4000">
 
 export default function initAnimationObserver() {
   const observedElements = document.querySelectorAll("[data-animation]");
@@ -23,7 +23,7 @@ export default function initAnimationObserver() {
           ? parseInt(animationDelay)
           : null; // override global delay, in miliseconds
 
-      // run animation, then stop observing
+      // run animation, then stop observing to prevent reseting the animation
       if (entry.isIntersecting) {
         playAnimation(entry.target);
         observer.unobserve(entry.target);
