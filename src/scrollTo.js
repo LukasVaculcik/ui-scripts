@@ -13,7 +13,7 @@ export default function initScrollTo() {
     const { scrollTarget, scrollOffset } = component.dataset;
     const targetElement = document.querySelector(`#${scrollTarget}`);
     const offset =
-      typeof parseInt(scrollOffset) == "number"
+      typeof scrollOffset && parseInt(scrollOffset) == "number"
         ? parseInt(scrollOffset)
         : defaults.offset;
 
