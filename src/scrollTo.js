@@ -13,7 +13,7 @@ export default function initScrollTo() {
     const { scrollTarget, scrollOffset } = component.dataset;
     const targetElement = document.querySelector(`#${scrollTarget}`);
     const offset =
-      typeof scrollOffset && parseInt(scrollOffset) == "number"
+      typeof scrollOffset === "number" && parseInt(scrollOffset)
         ? parseInt(scrollOffset)
         : defaults.offset;
 
@@ -24,7 +24,7 @@ export default function initScrollTo() {
       window.scrollTo({
         top:
           targetElement.getBoundingClientRect().top +
-          window.pageYOffset +
+          window.scrollY +
           offset,
         behavior: "smooth",
       });
