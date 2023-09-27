@@ -17,7 +17,7 @@ export default function initAnimationObserver() {
   // Create intersection observer and do stuff
   const observer = new IntersectionObserver((entries, observer) => {
     entries.forEach((entry) => {
-      const { animation, animationDelay } = entry.dataset;
+      const { animation, animationDelay } = entry.target.dataset;
       entry.target.style.animationDelay =
         typeof parseInt(animationDelay) == "number"
           ? parseInt(animationDelay)
