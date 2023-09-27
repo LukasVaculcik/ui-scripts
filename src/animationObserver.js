@@ -20,7 +20,7 @@ export default function initAnimationObserver() {
       const { animation, animationDelay } = entry.target.dataset;
       entry.target.style.animationDelay =
         typeof parseInt(animationDelay) == "number"
-          ? parseInt(animationDelay)
+          ? `${animationDelay}ms`
           : null; // override global delay, in miliseconds
 
       // run animation, then stop observing to prevent reseting the animation
