@@ -24,6 +24,7 @@ export default function initAnimationObserver() {
           : null; // override global delay, in miliseconds
 
       // run animation, then stop observing to prevent reseting the animation
+      const area = calculateArea(entry.rootBounds) - calculateArea(entry.boundingClientRect)
       if (entry.isIntersecting) {
         playAnimation(entry.target);
         observer.unobserve(entry.target);
@@ -37,10 +38,23 @@ export default function initAnimationObserver() {
   });
 }
 
+/**
+ * @param {Element} element
+ */
 function playAnimation(element) {
   element.style.animationPlayState = "running";
 }
 
+/**
+ * @param {Element} element
+ */
 function pauseAnimation(element) {
   element.style.animationPlayState = "paused";
+}
+
+/**
+ * @param {DOMRectReadOnly} rectangle
+ */
+function calculateArea(rectangle) {
+  return rectangle.width * rectangle.height
 }
