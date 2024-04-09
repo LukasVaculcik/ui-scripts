@@ -1,6 +1,9 @@
 // Example
 // <img data-animation="fadein" data-animation-delay="4000">
 
+/**
+ * Observes intersection of animatable elements with viewport
+ */
 export default function initAnimationObserver() {
   const observedElements = document.querySelectorAll("[data-animation]");
 
@@ -39,20 +42,23 @@ export default function initAnimationObserver() {
 }
 
 /**
- * @param {Element} element
+ * Set "animation-play-state: running" on element
+ * @param {HTMLElement} element
  */
 function playAnimation(element) {
   element.style.animationPlayState = "running";
 }
 
 /**
- * @param {Element} element
+ * Set "animation-play-state: paused" on element
+ * @param {HTMLElement} element
  */
 function pauseAnimation(element) {
   element.style.animationPlayState = "paused";
 }
 
 /**
+ * Calculates area of {DOMRectReadOnly}
  * @param {DOMRectReadOnly} rectangle
  */
 function calculateArea(rectangle) {

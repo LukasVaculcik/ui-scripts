@@ -1,3 +1,8 @@
+/**
+ * Get filename with extension from <input type="file">
+ * @param {Event} event
+ * @return {string|void}
+ */
 export function fileNameWithExt(event) {
   if (
     !event ||
@@ -17,11 +22,22 @@ export function fileNameWithExt(event) {
   return `${fileName}.${ext}`;
 }
 
+/**
+ * Converts string to boolean
+ * @param {string} someString
+ * @return {boolean}
+ */
 export function strToBool(someString) {
   return someString === "true";
 }
 
-// Debounce executes function only once per wait tiem
+/**
+ * Debounce executes function only once per wait time
+ * @param {function} func
+ * @param {number} wait
+ * @param {boolean} immediate
+ * @return {(function(...[*]): void)|*}
+ */
 export function debounce(func, wait = 100, immediate) {
   let timeout;
   return function (...args) {

@@ -6,6 +6,7 @@ import anime from "animejs";
 const locale = document.querySelector("html").getAttribute("lang");
 const unitRegex = new RegExp(/.*\d(.*)$/, "i");
 const defaults = {
+  min: 0,
   max: 0,
   rounding: 10,
   duration: 3000,
@@ -68,6 +69,15 @@ export default function initCounter() {
   });
 }
 
+/**
+ * Returns animejs instance
+ * @param {HTMLElement} element
+ * @param {number} max
+ * @param {number} rounding
+ * @param {number} duration
+ * @param {string} unit
+ * @return {*}
+ */
 function counterAnimation(element, max, rounding, duration, unit) {
   return anime({
     targets: element,

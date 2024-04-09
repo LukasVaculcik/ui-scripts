@@ -1,3 +1,6 @@
+/**
+ * Observes DOM changes
+ */
 export default function mutationObserver() {
   // Select the node that will be observed for mutations
   const targetNode = document.querySelector("#snippet--element");

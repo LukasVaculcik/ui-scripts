@@ -1,5 +1,7 @@
-// Transition HTML DOM element height from/to CSS "height: auto".
-
+/**
+ * Transitions HTMLElement from 'height: auto' to full content height
+ * @param {HTMLElement} element
+ */
 export function expandElement(element) {
   // get the height of the element's inner content, regardless of its actual size
   let height = element.scrollHeight;
@@ -19,6 +21,10 @@ export function expandElement(element) {
   element.setAttribute("data-collapsed", "false");
 }
 
+/**
+ * Collapses HTMLElement from 'height: auto' to zero
+ * @param {HTMLElement} element
+ */
 export function collapseElement(element) {
   // get the height of the element's inner content, regardless of its actual size
   let height = element.scrollHeight;

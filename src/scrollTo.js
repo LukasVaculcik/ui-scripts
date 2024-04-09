@@ -6,6 +6,9 @@ const defaults = {
   offset: 0,
 }
 
+/**
+ * Initializes smooth scrolling to target
+ */
 export default function initScrollTo() {
   const components = document.querySelectorAll("[data-scroll-target]")
 

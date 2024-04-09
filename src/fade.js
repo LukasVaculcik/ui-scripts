@@ -1,3 +1,7 @@
+/**
+ * Transition to "display: none"
+ * @param {HTMLElement} element
+ */
 export function fadeOut(element) {
   element.style.opacity = 1;
   function fade() {
@@ -10,6 +14,11 @@ export function fadeOut(element) {
   fade();
 }
 
+/**
+ * Transition from "display: none"
+ * @param {HTMLElement} element
+ * @param {string} display
+ */
 export function fadeIn(element, display) {
   element.style.opacity = 0;
   element.style.display = display || "block";

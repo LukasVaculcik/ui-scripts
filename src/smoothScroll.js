@@ -25,6 +25,9 @@ export function SmoothScroll(target, speed, smooth) {
   target.addEventListener("mousewheel", scrolled, { passive: false })
   target.addEventListener("DOMMouseScroll", scrolled, { passive: false })
 
+  /**
+   * @param {Event} e
+   */
   function scrolled(e) {
     e.preventDefault() // disable default scrolling
 
@@ -36,6 +39,10 @@ export function SmoothScroll(target, speed, smooth) {
     if (!moving) update()
   }
 
+  /**
+   * @param {Event} e
+   * @return {number}
+   */
   function normalizeWheelDelta(e) {
     if (e.detail) {
       if (e.wheelDelta)
