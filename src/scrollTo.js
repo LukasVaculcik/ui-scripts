@@ -15,7 +15,7 @@ export default function initScrollTo() {
   components.forEach((component) => {
     const { scrollTarget, scrollOffset } = component.dataset
     const targetElement = document.getElementById(scrollTarget)
-    const offset = typeof scrollOffset === "number" && parseInt(scrollOffset) ? parseInt(scrollOffset) : defaults.offset
+    const offset = typeof scrollOffset === "undefined" ? defaults.offset : parseInt(scrollOffset)
 
     component.addEventListener("click", (event) => {
       // disables <a> tag from redirecting
