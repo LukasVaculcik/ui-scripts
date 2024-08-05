@@ -14,7 +14,7 @@ export default function initAnimationObserver() {
   const observerOptions = {
     root: null,
     rootMargin: "0px",
-    threshold: 0.75,
+    threshold: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
   };
 
   // Create intersection observer and do stuff
@@ -26,11 +26,13 @@ export default function initAnimationObserver() {
           ? `${animationDelay}ms`
           : null; // override global delay, in miliseconds
 
-      // run animation, then stop observing to prevent reseting the animation
-      const area = calculateArea(entry.rootBounds) - calculateArea(entry.boundingClientRect)
       if (entry.isIntersecting) {
-        playAnimation(entry.target);
-        observer.unobserve(entry.target);
+        // Every animation has different conditions of execution
+        if (animation === 'abc' && entry.intersectionRatio >= 0.90) {
+          playAnimation(observer, entry)
+        } else {
+          playAnimation(observer, entry)
+        }
       }
     });
   }, observerOptions);
@@ -42,15 +44,17 @@ export default function initAnimationObserver() {
 }
 
 /**
- * Set "animation-play-state: running" on element
- * @param {HTMLElement} element
+ * Run animation, then stop observing to prevent reseting the animation
+ * @param {IntersectionObserver} observer
+ * @param {IntersectionObserverEntry} entry
  */
-function playAnimation(element) {
-  element.style.animationPlayState = "running";
+function playAnimation(observer, entry) {
+  entry.target.style.animationPlayState = "running"
+  observer.unobserve(entry.target)
 }
 
 /**
- * Set "animation-play-state: paused" on element
+ * Pause animation
  * @param {HTMLElement} element
  */
 function pauseAnimation(element) {
@@ -58,9 +62,21 @@ function pauseAnimation(element) {
 }
 
 /**
- * Calculates area of {DOMRectReadOnly}
- * @param {DOMRectReadOnly} rectangle
+ * Checks if entry element's height is lower than limit
+ * @param {HTMLElement} element
+ * @param {number} limitHeight
+ * @return {boolean}
  */
-function calculateArea(rectangle) {
-  return rectangle.width * rectangle.height
+function isElementLowerThanLimit(element, limitHeight) {
+  return element.getBoundingClientRect().height < limitHeight;
+}
+
+/**
+ * Checks if entry element's height is higher than limit
+ * @param {HTMLElement} element
+ * @param {number} limitHeight
+ * @return {boolean}
+ */
+function isElementHigherThanLimit(element, limitHeight) {
+  return element.getBoundingClientRect().height > limitHeight;
 }
