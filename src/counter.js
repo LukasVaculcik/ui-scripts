@@ -51,7 +51,7 @@ export default function initCounter() {
       }
 
       // if counterUnit is specified
-      if (counterUnit.length > 0) {
+      if (counterUnit && counterUnit.length > 0) {
         unit = counterUnit;
       }
 
