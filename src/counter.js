@@ -1,14 +1,14 @@
 // Example
-// <div data-counter data-counter-max="77" data-counter-rounding="100" data-counter-duration="5000" data-counter-unit=" km"></div>
+// <div data-counter data-counter-max="77" data-counter-rounding="2" data-counter-duration="5000" data-counter-unit=" km"></div>
 
-import anime from "animejs";
+import { animate, splitText, stagger, random, utils } from 'animejs';
 
 const locale = document.querySelector("html").getAttribute("lang");
 const unitRegex = new RegExp(/.*\d(.*)$/, "i");
 const defaults = {
   min: 0,
   max: 0,
-  rounding: 10,
+  rounding: 2,
   duration: 3000,
   unit: "",
 };
@@ -32,17 +32,10 @@ export default function initCounter() {
       const { counterMax, counterRounding, counterDuration, counterUnit } =
         entry.target.dataset;
 
-      const max =
-        typeof parseFloat(counterMax) == "number"
-          ? parseFloat(counterMax)
-          : defaults.max;
+      const max = typeof parseFloat(counterMax) == "number" ? parseFloat(counterMax) : defaults.max
       const unitString = unitRegex.exec(counterMax).pop();
-      const rounding = Number.isInteger(parseInt(counterRounding))
-        ? parseInt(counterRounding)
-        : defaults.rounding;
-      const duration = Number.isInteger(parseInt(counterDuration))
-        ? parseInt(counterDuration)
-        : defaults.duration;
+      const rounding = Number.isInteger(parseInt(counterRounding)) ? parseInt(counterRounding) : defaults.rounding
+      const duration = Number.isInteger(parseInt(counterDuration)) ? parseInt(counterDuration) : defaults.duration
       let unit = defaults.unit;
 
       // if counterMax is value with unit
@@ -57,7 +50,12 @@ export default function initCounter() {
 
       // create & run animation, then stop observing to prevent reseting the animation
       if (entry.isIntersecting) {
-        counterAnimation(entry.target, max, rounding, duration, unit);
+        console.log(entry.target)
+        console.log(max)
+        console.log(rounding)
+        console.log(duration)
+        console.log(unit)
+        counterAnimation(entry.target, max, rounding, duration, unit)
         observer.unobserve(entry.target);
       }
     });
@@ -69,6 +67,8 @@ export default function initCounter() {
   });
 }
 
+
+const [ $value ] = utils.$('.value');
 /**
  * Returns animejs instance
  * @param {HTMLElement} element
@@ -79,16 +79,15 @@ export default function initCounter() {
  * @return {*}
  */
 function counterAnimation(element, max, rounding, duration, unit) {
-  return anime({
-    targets: element,
+  return animate(element,{
     innerHTML: [0, max],
-    easing: "linear",
-    round: rounding,
+    ease: "linear",
+    modifier: utils.round(rounding),
     duration: duration,
     autoplay: true,
     loop: false,
-    update(a) {
-      const value = a.animations[0].currentValue;
+    onUpdate: (self) => {
+      const value = element.textContent;
       const number = locale
         ? new Intl.NumberFormat(locale).format(value)
         : value;
