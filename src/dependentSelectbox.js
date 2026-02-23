@@ -1,4 +1,15 @@
 // https://blog.nette.org/cs/zavisle-selectboxy-elegantne-v-nette-a-cistem-javascriptu
+// EXAMPLE:
+// $inputSport = $form->addRadioList(self::FIELD_SPORT, 'Sport', $sportOptions);
+// $inputEvent = $form->addSelect(self::FIELD_EVENT, 'Termín / město', [])
+// ->setHtmlAttribute('data-depends', $inputSport->getHtmlName())
+// ->setHtmlAttribute('data-items', $this->teamRepository->getEventsPerSport())
+// ->setHtmlAttribute('data-prompt', 'Termín / město');
+//
+// $form->onAnchor[] = function() use ($inputSport, $inputEvent) {
+//   $inputEvent->setItems($inputSport->getValue() ? $this->teamRepository->getEventOptions($inputSport->getValue()) : []);
+// };
+
 export default function dependentSelectbox() {
   const selectBoxes = document.querySelectorAll("select[data-depends]")
   selectBoxes.forEach((childSelect) => {
